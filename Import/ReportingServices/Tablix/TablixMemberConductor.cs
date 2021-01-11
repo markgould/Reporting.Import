@@ -11,7 +11,7 @@ namespace DevExpress.XtraReports.Import.ReportingServices.Tablix {
         public virtual bool CanConvertGroupBand(TablixMember member) {
             if(member.HasHeader() || !member.HasContentRecursive())
                 return true;
-            if(member.HasGroupRecursive() && member.Members.Count == 0) {
+            if(member.HasGroup() || member.HasGroupRecursive() && member.Members.Count == 0) {
                 TableSource tableSource = member.GetGroupTableSource();
                 return tableSource != TableSource.None || member.GroupExpressions.Count > 0;
             }
