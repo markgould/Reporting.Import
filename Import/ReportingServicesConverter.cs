@@ -65,6 +65,7 @@ namespace DevExpress.XtraReports.Import {
 
         protected override void ConvertInternal(string fileName) {
             reportFolder = Path.GetDirectoryName(fileName);
+            TargetReport.DisplayName = Path.GetFileNameWithoutExtension(fileName);
             using(FileStream fileStream = File.OpenRead(fileName)) {
                 XDocument rdlcDocument = SafeXml.CreateXDocument(fileStream);
                 xmlns = rdlcDocument.Root.GetDefaultNamespace();
@@ -151,7 +152,9 @@ namespace DevExpress.XtraReports.Import {
                     case "ReportTemplate":
                     case "InteractiveHeight":
                     case "InteractiveWidth":
+                        break;
                     case "Description":
+                        TargetReport.Tag = e.Value;
                         break;
                     default:
 #if DEBUG
